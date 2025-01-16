@@ -96,5 +96,12 @@ figcaption
     padding: 0;
 }
 #tak{
-    font-size: 100px;
+    font-size: 80px;
+}
+input[class="3"]{
+    height: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 200px;
+    font-family: cursive;
 }
