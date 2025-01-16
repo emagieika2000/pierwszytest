@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ran de wu</title>
+    <link rel="stylesheet" href="css1.css">
+</head>
+<body>
+    <section id="naglowek">
+        <h1>Wybierz kiedy ci pasuje!</h1>
+    </section>
+
+    <section id="srodek">
+        <!-- Input do wyboru daty i godziny -->
+        <input id="datetime" type="datetime-local"><br>
+
+        <!-- Przycisk, który wyśle powiadomienie na Discordzie -->
+        <input class="2" type="button" value="Wtedy mi pasuje!" onclick="sendNotificationAndRedirect()"/>
+
+        <!-- Obrazek dla estetyki -->
+        <center><img id="happy" src="happy.jpg" alt="Happy image"></center>
+    </section>
+
+    <section id="stopka">
+        <!-- Możesz tu dodać stopkę strony -->
+    </section>
+
+    <script>
+        function sendNotificationAndRedirect() {
+            // Pobieramy wartość z inputu 'datetime'
+            var selectedDate = document.getElementById('datetime').value;
+
+            // Sprawdzamy, czy data została wybrana
+            if (!selectedDate) {
+                alert('Proszę wybrać datę i godzinę!');
+                return;
+            }
+
+            // Tworzymy wiadomość, która zawiera wybraną datę i godzinę
+            var message = `Użytkownik wybrał datę i godzinę: ${selectedDate}.`; 
+
+            // Wysyłamy powiadomienie na Discorda
+            fetch('https://discord.com/api/webhooks/1329128888894357504/tj5cx8-ZE-whw5YnpYchmc8c23vTwfqZBqUFPQhGOTu8m6LqpASF_4sNha8aSKGo0UHb', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: message  // Treść powiadomienia, która zawiera datę i godzinę
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Powiadomienie wysłane', data);  // Logujemy odpowiedź z serwera
+            })
+            .catch(error => {
+                console.error('Błąd:', error);  // Logujemy błędy, jeśli coś poszło nie tak
+            });
+
+            // Przekierowanie na inną stronę po wysłaniu powiadomienia
+            window.location.href = '3.html'; // Zmien '2.html' na adres, na który chcesz przejść
+        }
+    </script>
+</body>
+</html>
